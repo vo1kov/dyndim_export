@@ -27,7 +27,7 @@ contactStorage.find( queryBuilder )
  .then( function( data ) {
 
 	data.forEach(function(item, i, arr) {
-  		document.write( item.name + ": " + item.lattitude + item.longitude );
+  		document.write(item.name + ": " + item.lattitude + item.longitude + item.altitude + item.speed + item.time);
 	});
 
   });
