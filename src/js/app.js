@@ -8,13 +8,20 @@ var queryBuilder = Backendless.DataQueryBuilder.create();
 
 // request related objects for the columns
 queryBuilder.setRelated(["lattitude", "longitude"]);
+queryBuilder.setSortBy( [ "name" ] );
 var pageSize = 50;
+
+
+
+let set = new Set();
+var alldata = [];
 
 for (var i = 0; i < 50; i++) {
     queryBuilder.setPageSize(pageSize);
     queryBuilder.setOffset(pageSize * i);
     contactStorage.find(queryBuilder).then(function(data) {
         data.forEach(function(item, i, arr) {
+            set.add(item.name);
             var times = JSON.parse(item.time);
             var lattitudes = JSON.parse(item.lattitude);
             var longitudes = JSON.parse(item.longitude);
@@ -24,4 +31,14 @@ for (var i = 0; i < 50; i++) {
                 document.write(item.name + " " + times[j] + " " + lattitudes[j] + " " + longitudes[j] + " " + altitudes[j] + " " + speeds[j] + " <br />");            }
         });
     });
+}
+
+document.write(alldata.toString()+" <br />");
+
+for (var i = 0; i < set.length; i++) {
+    document.write(set[i]+ " <br />");
+}
+
+for (var i = 0; i < alldata.length; i++) {
+    document.write(alldata[i]);
 }
